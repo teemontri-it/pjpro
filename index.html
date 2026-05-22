@@ -1,196 +1,49 @@
 <!DOCTYPE html>
-<html lang="th">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Login - Premier</title>
-<link rel="icon" href="image/logo_premier.png">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+<title>Login</title>
 <style>
-html,body{margin:0;padding:0;height:100%;width:100%}
 body{
- font-family:Arial,sans-serif;
- background:#f4f6f9;
- display:flex;
- justify-content:center;
- align-items:center
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#4facfe,#00f2fe);
+font-family:Arial;
 }
-.login-box{
- background:#fff;
- width:365px;
- padding:30px;
- border-radius:12px;
- box-shadow:0 12px 36px rgba(0,0,0,.12);
- animation:fadeIn .6s ease
+.box{
+background:white;
+padding:40px;
+border-radius:20px;
+width:300px;
+text-align:center;
 }
-@keyframes fadeIn{
- from{opacity:0;transform:translateY(10px)}
- to{opacity:1;transform:translateY(0)}
+input{
+width:100%;
+padding:10px;
+margin:5px 0;
+border:none;
+background:#f1f1f1;
+border-radius:8px;
 }
-.form-group{margin-bottom:15px}
-.form-group label{
- display:block;
- margin-bottom:6px;
- font-size:14px;
- font-weight:bold
-}
-.form-group input{
- width:87%;
- padding:10px 36px 10px 10px;
- border-radius:8px;
- border:1px solid #ccc;
- font-size:14px
-}
-.form-group input:focus{
- outline:none;
- border-color:#007bff
-}
-.password-wrapper{position:relative}
-.toggle-password{
- position:absolute;
- right:10px;
- top:50%;
- transform:translateY(-50%);
- cursor:pointer;
- color:#666
-}
-.options-row{
- display:flex;
- justify-content:space-between;
- align-items:center;
- font-size:13px
-}
-.remember-box{
- display:flex;
- align-items:center;
- gap:6px;
- cursor:pointer
-}
-.forgot-link{
- color:#007bff;
- text-decoration:none
-}
-.forgot-link:hover{text-decoration:underline}
-.btn-login{
- width:100%;
- padding:12px;
- background:#007bff;
- color:#fff;
- border:none;
- border-radius:8px;
- font-size:16px;
- cursor:pointer;
- margin-top:10px
-}
-.btn-login:hover:not(:disabled){background:#0056b3}
-.btn-login:disabled{
- background:#9bbcff;
- cursor:not-allowed
-}
-.extra-text{
- margin-top:20px;
- font-size:13px;
- color:#777;
- text-align:center
-}
-.input-error{
- border-color:#dc3545!important;
- background:#fff5f5
-}
-.error-text{
- color:#dc3545;
- font-size:12px;
- margin-top:4px
+button{
+width:100%;
+padding:10px;
+border:none;
+border-radius:8px;
+background:#2196f3;
+color:white;
 }
 </style>
 </head>
-
 <body>
-
-<div class="login-box">
-<form method="post" action="login_db.php">
-
-<div class="form-group">
-<label>รหัสผู้ใช้งาน - User Code</label>
-<input type="text"
- name="user_code"
- id="user_code"
- class="<?= $error_type==='user'?'input-error':'' ?>"
- value="<?= htmlspecialchars($old_user_code ?: $rememberUser) ?>"
- required maxlength="20" placeholder="User Code">
-<?php if($error_type==='user'): ?>
-<div class="error-text">รหัสผู้ใช้งานไม่ถูกต้อง</div>
-<?php endif; ?>
-<?php if($error_type==='already_login'): ?>
-<div class="error-text">บัญชีนี้กำลังใช้งานอยู่</div>
-<?php endif; ?>
+<div class="box">
+<h2>Login</h2>
+<input placeholder="Username">
+<input type="password" placeholder="Password">
+<button onclick="alert('Login Success 🚀')">Login</button>
 </div>
-
-<div class="form-group">
-<label>รหัสผ่าน - Password</label>
-<div class="password-wrapper">
-<input type="password"
- name="password"
- id="password"
- class="<?= $error_type==='password'?'input-error':'' ?>"
- required maxlength="20" placeholder="Password">
-<span class="toggle-password" onclick="togglePassword()">
-<i id="toggleIcon" class="fa-solid fa-eye"></i>
-</span>
-</div>
-<?php if($error_type==='password'): ?>
-<div class="error-text">รหัสผ่านไม่ถูกต้อง</div>
-<?php endif; ?>
-</div>
-
-<div class="options-row">
-<label class="remember-box">
-<input type="checkbox" name="rememberMe" <?= $rememberUser?'checked':'' ?>>
-จดจำรหัสผู้ใช้งาน
-</label>
-<a href="forgot-password.php" class="forgot-link">ลืมรหัสผ่าน?</a>
-</div>
-
-<button class="btn-login" id="loginBtn" disabled>เข้าสู่ระบบ</button>
-
-</form>
-
-<div class="extra-text">
-หากต้องการสร้างบัญชี กรุณาติดต่อไอทีซัพพอท<br>
-© 2026 Premier Jewelry Manufacturing Co., Ltd.
-</div>
-</div>
-
-<script>
-const user_codeInput=document.getElementById("user_code");
-const passwordInput=document.getElementById("password");
-const loginBtn=document.getElementById("loginBtn");
-
-function togglePassword(){
- const icon=document.getElementById("toggleIcon");
- if(passwordInput.type==="password"){
-  passwordInput.type="text";
-  icon.className="fa-solid fa-eye-slash";
- }else{
-  passwordInput.type="password";
-  icon.className="fa-solid fa-eye";
- }
-}
-
-function checkInputs(){
- loginBtn.disabled=!(user_codeInput.value.trim()&&passwordInput.value.trim());
-}
-user_codeInput.addEventListener("input",checkInputs);
-passwordInput.addEventListener("input",checkInputs);
-window.onload=checkInputs;
-
-/* ================== กัน Back / Cache ================== */
-window.addEventListener("pageshow", function (event) {
-    if (event.persisted) {
-        window.location.reload();
-    }
-});
-</script>
-
 </body>
 </html>
