@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<style>
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Arial;
+background:#1e1e2f;
+color:white;
+}
+.box{
+text-align:center;
+}
+button{
+margin-top:20px;
+padding:10px 20px;
+border:none;
+border-radius:10px;
+background:#ff4d4d;
+color:white;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h1>🎉 Welcome to Dashboard</h1>
+<p>คุณเข้าสู่ระบบสำเร็จแล้ว</p>
+
+<button onclick="logout()">Logout</button>
+</div>
+
+<script>
+function logout(){
+window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
